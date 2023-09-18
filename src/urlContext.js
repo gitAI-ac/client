@@ -8,7 +8,7 @@ export function useUrl() {
 
 export function UrlContextProvider({ children }) {
   const url = 'http://127.0.0.1:3000';
-  const secondurl = 'https://bobikit.onrender.com'; // Replace with your server address
+  const secondurl = 'https://bobikit.vercel.app/'; // Replace with your server address
 
   useEffect(() => {
     return () => {};
