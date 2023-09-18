@@ -14,5 +14,7 @@ export function UrlContextProvider({ children }) {
     return () => {};
   }, []);
 
-  return <UrlContext.Provider value={url}>{children}</UrlContext.Provider>;
+  return (
+    <UrlContext.Provider value={secondurl}>{children}</UrlContext.Provider>
+  );
 }

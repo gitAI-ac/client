@@ -26,7 +26,6 @@ import { useMyContext } from './alertContext';
 import UserProfileSettings from './Settings';
 import BasicAlerts from './components/alertComponent/alert';
 import { useUrl } from './urlContext';
-import { useMyCallers } from './callerIDsContext';
 
 let content;
 let sidinavi;
@@ -61,7 +60,6 @@ const HomePage = () => {
   const storyOverlayRef = useRef(null);
   const callaudioRef = useRef(null);
   const createOverlayRef = useRef(null);
-  const { callingIdObject } = useMyCallers();
 
   // Attach the outside click handler
   const navigate = useNavigate();
@@ -89,7 +87,7 @@ const HomePage = () => {
           if (!caller._id) {
             try {
               const res = await fetchData(
-                `${baseurl}/api/v1/users/${data.username}`,
+                `${baseurl}/api/v1/users/${data.username}`
               );
 
               setCaller(res.user);
@@ -130,21 +128,6 @@ const HomePage = () => {
         showAlert({
           type: 'error',
           message: `cannot set received message status... `,
-        });
-      }
-    });
-
-    socket.on('updateCallingId', async (data) => {
-      try {
-        showAlert({
-          type: 'info',
-          message: `got a id update name: ${data.user} username ${data.username} ${data.socketId}`,
-        });
-        callingIdObject(data.callerid, data.socketId);
-      } catch (err) {
-        showAlert({
-          type: 'error',
-          message: `change the page bef... `,
         });
       }
     });
@@ -233,7 +216,7 @@ const HomePage = () => {
       if (!section) {
         if (feed.length === 0) {
           fetchData(
-            `${baseurl}/api/v1/posts?page=${pageNumberOfFeed}&limit=${20}&sort=-createdAt`,
+            `${baseurl}/api/v1/posts?page=${pageNumberOfFeed}&limit=${20}&sort=-createdAt`
           ).then((res) => {
             try {
               setFeed(res.doc);
@@ -366,7 +349,7 @@ const HomePage = () => {
                 Authorization: `Bearer ${jwtToken}`,
                 'Content-Type': 'application/json',
               },
-            },
+            }
           )
           .then((res) => {
             setSeenData(res.data.data);
@@ -462,7 +445,7 @@ const HomePage = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     navigate(
-                      `/call/${caller.username}/${callerid}/${me.username}/${socket.id}/2/1`,
+                      `/call/${caller.username}/${callerid}/${me.username}/${socket.id}/2/1`
                     );
                   }}
                   className="absolute object-right justify-center pt-48 h-20 w-20"
@@ -566,7 +549,7 @@ const HomePage = () => {
         fetchData(
           `${baseurl}/api/v1/posts?page=${
             pageNumberOfFeed + 1
-          }&limit=${5}&sort=-createdAt`,
+          }&limit=${5}&sort=-createdAt`
         ).then((res) => {
           if (res.doc.length > 0) {
             setFeed([...feed, ...res.doc]);

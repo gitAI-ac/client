@@ -6,7 +6,6 @@ import { fetchData, retrievedCookieValue } from './utilities';
 import Cookies from 'js-cookie';
 import { useUrl } from '../urlContext';
 import { useMyContext } from '../alertContext';
-import { useMyCallers } from '../callerIDsContext';
 
 import {
   FaVideo,
@@ -21,8 +20,6 @@ import { ImPhoneHangUp } from 'react-icons/im';
 import { useSocket } from '../MyContext';
 
 function VideoCall() {
-  const { callingId } = useMyCallers();
-  console.log(callingId);
   const { showAlert } = useMyContext();
   const baseurl = useUrl();
   const socket = useSocket();
@@ -42,11 +39,11 @@ function VideoCall() {
   const [microphoneOn, setMicrophoneOn] = useState(true);
   const [speakerOn, setSpeakerOn] = useState(true);
   const [callStatus, setCallStatus] = useState(
-    receiver * 1 === 0 ? 'Calling' : 'Ringing',
+    receiver * 1 === 0 ? 'Calling' : 'Ringing'
   );
 
   const audio = new Audio(
-    'https://www.dropbox.com/scl/fi/asi0wsrxqcdgf8hpoquov/call.mp3?rlkey=jrru76gij8xb2upe9wqd2kf3z&raw=1',
+    'https://www.dropbox.com/scl/fi/asi0wsrxqcdgf8hpoquov/call.mp3?rlkey=jrru76gij8xb2upe9wqd2kf3z&raw=1'
   );
   audio.loop = true;
 

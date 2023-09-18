@@ -17,7 +17,6 @@ import { FaDotCircle, FaRegDotCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { LoadMessage } from './loadMessage';
 import EmojiPicker from 'emoji-picker-react';
-import { useMyCallers } from '../callerIDsContext';
 import {
   getTime,
   getTimeDifference,
@@ -34,7 +33,6 @@ import { useSocket } from '../MyContext';
 const jwtToken = retrievedCookieValue();
 
 export function Conversation({ sizes, limit, me, callaudioRef }) {
-  const { callingId } = useMyCallers();
   const baseurl = useUrl();
   const { showAlert } = useMyContext();
   const socket = useSocket();
@@ -181,11 +179,11 @@ export function Conversation({ sizes, limit, me, callaudioRef }) {
             res.doc.map(async (message) => {
               message.checker = getTime(message.createdAt);
               return message;
-            }),
+            })
           );
           setOtherUser(res.conversation);
           setLastActive(
-            getTimeDifference(res.conversation.users[0].lastActive),
+            getTimeDifference(res.conversation.users[0].lastActive)
           );
           setSocketId(res.conversation.users[0].socketId);
           setOnline(res.conversation.users[0].online ? true : false);
@@ -281,7 +279,7 @@ export function Conversation({ sizes, limit, me, callaudioRef }) {
             formDataImage,
             {
               headers,
-            },
+            }
           )
           .then((imageuploaded) => {
             showAlert({
@@ -395,9 +393,7 @@ export function Conversation({ sizes, limit, me, callaudioRef }) {
                 ? `/call/${me.username}/${socket.id}/${
                     otherUser.users[0].username
                   }/${
-                    callingId[otherUser.users[0]._id.toString()]
-                      ? callingId[otherUser.users[0]._id.toString()]
-                      : otherUser.users[0].socketId
+                    otherUser.users[0].socketId
                       ? otherUser.users[0].socketId
                       : 0
                   }/1/0`
@@ -416,9 +412,7 @@ export function Conversation({ sizes, limit, me, callaudioRef }) {
                 ? `/call/${me.username}/${socket.id}/${
                     otherUser.users[0].username
                   }/${
-                    callingId[otherUser.users[0]._id.toString()]
-                      ? callingId[otherUser.users[0]._id.toString()]
-                      : otherUser.users[0].socketId
+                    otherUser.users[0].socketId
                       ? otherUser.users[0].socketId
                       : 0
                   }/1/1`
